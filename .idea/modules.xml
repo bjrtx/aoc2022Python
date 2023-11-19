@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/aoc2022.iml" filepath="$PROJECT_DIR$/.idea/aoc2022.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../aoc/.idea/aoc_all_years.iml" filepath="$PROJECT_DIR$/../aoc/.idea/aoc_all_years.iml" />
     </modules>
   </component>
 </project>
