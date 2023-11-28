@@ -1,4 +1,5 @@
 import itertools
+import math
 import re
 import intervaltree
 import tqdm as tqdm
@@ -8,7 +9,7 @@ from aocd.models import Puzzle
 puzzle = Puzzle(2022, 15)
 data = puzzle.input_data
 lines = data.splitlines()
-sensor_and_ranges = {}
+sensor_and_ranges: dict[tuple[int], int] = {}
 beacons = set()
 
 
@@ -31,17 +32,20 @@ for (x, y), d in sensor_and_ranges.items():
 intervals.merge_overlaps(strict=False)
 puzzle.answer_a = sum(i.end - i.begin + 1 for i in intervals) - sum(y == 2_000_000 for _, y in beacons)
 
-intervals.clear()
-def coords_to_one_d(a, b):
-    return 4_000_000 * a + b  # ever so slightly off, not in any way that matters
 
-intervals.addi(0, coords_to_one_d(4_000_000, 4_000_000))
-for (x, y), d in tqdm.tqdm(sensor_and_ranges.items()):
-    for l in range(-d, d + 1):
-        if 0 <= x + l <= 4_000_000 and 0 <= x + l <= 4_000_000:
-            intervals.chop(coords_to_one_d(x + l, max(0, y - (d - l))), coords_to_one_d(x + l, min(4000_000, y + (d - l))) + 1)
-for (i, j) in beacons:
-    intervals.chop(coords_to_one_d(i, j), coords_to_one_d(i, j) + 1)
-intervals.merge_overlaps()
-for i in intervals:
-    print(i)
+# question b
+def all_candidates():
+    for (x, y), r in sensor_and_ranges.items():
+        for a, b in itertools.product((-1, 1), repeat=2):
+            yield from ((x + a * t, y + b * (r + 1 - t)) for t in range(r + 2))
+
+# not optimal, todo
+unique_sol = set(
+    (x, y)
+    for x, y in all_candidates()
+    if 0 <= x <= 4_000_000 and 0 <= y <= 4_000_000 and (x, y) not in beacons
+    if all(distance((x, y), b) > r for b, r in sensor_and_ranges.items())
+)
+assert len(unique_sol) == 1
+x, y = unique_sol.pop()
+puzzle.answer_b = x * 4_000_000 + y
