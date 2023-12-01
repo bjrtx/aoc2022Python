@@ -1,6 +1,7 @@
 import itertools
 import re
 
+import more_itertools
 from aocd.models import Puzzle
 
 puzzle = Puzzle(year=2015, day=5)
@@ -19,5 +20,5 @@ def is_nicer(s):
     return bool(re.search(r"(..).*\1", s) and re.search(r"(.).\1", s))
 
 
-puzzle.answer_a = sum(is_nice(s) for s in data)
-puzzle.answer_b = sum(is_nicer(s) for s in data)
+puzzle.answer_a = more_itertools.quantify(data, is_nice)
+puzzle.answer_b = more_itertools.quantify(data, is_nicer)
