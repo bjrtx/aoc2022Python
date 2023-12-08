@@ -1,5 +1,3 @@
-import itertools
-
 from aocd.models import Puzzle
 
 puzzle = Puzzle(2022, 10)
@@ -49,6 +47,4 @@ def displayed():
         yield "\n"
 
 
-for c in displayed():
-    print(c, end="")
 puzzle.answer_b = "ERCREPCJ"

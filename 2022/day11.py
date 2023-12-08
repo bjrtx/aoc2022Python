@@ -1,7 +1,6 @@
 import heapq
-import itertools
 import re
-from collections import deque, Counter
+from collections import deque
 from math import lcm
 
 from aocd.models import Puzzle
@@ -10,7 +9,7 @@ puzzle = Puzzle(2022, 11)
 data = puzzle.input_data
 
 
-class Monkey():
+class Monkey:
     def __init__(self, items: deque[int], expr, test, if_true, if_false):
         self.items = items
         self.expr = expr
@@ -28,7 +27,7 @@ pattern = r"""Monkey (\d+):
 monkeys = [
     Monkey(
         items=deque(list(eval(m["items"] + ","))),
-        expr = m["expr"],
+        expr=m["expr"],
         test=int(m["div"]),
         if_true=int(m["true"]),
         if_false=int(m["false"])
@@ -39,9 +38,11 @@ monkeys = [
 inspections = [0 for _ in monkeys]
 mod = lcm(*(m.test for m in monkeys))
 
-def round(relax=True, log=True):
+
+def round_(relax=True, log=True):
     for i, m in enumerate(monkeys):
-        if log: print(f"Monkey {i}:")
+        if log:
+            print(f"Monkey {i}:")
         while m.items:
             inspections[i] += 1
             item = m.items.popleft()
@@ -54,7 +55,7 @@ def round(relax=True, log=True):
                 new_worry //= 3
                 if log:
                     print(f"  Monkey gets bored with item. Worry level is divided by 3 to {new_worry}.")
-            test = not(new_worry % m.test)
+            test = not (new_worry % m.test)
             if log:
                 print(f"  Current worry level is{'' if test else ' not'} divisible by {m.test}.")
             next_monkey = m.if_true if test else m.if_false
@@ -62,7 +63,9 @@ def round(relax=True, log=True):
             if log:
                 print(f"  Item with worry level {new_worry} is thrown to monkey {next_monkey}.")
 
-for _ in range(20): round()
+
+for _ in range(20):
+    round_()
 
 a, b = heapq.nlargest(2, inspections)
 puzzle.answer_a = a * b
@@ -70,7 +73,7 @@ puzzle.answer_a = a * b
 monkeys = [
     Monkey(
         items=deque(list(eval(m["items"] + ","))),
-        expr = m["expr"],
+        expr=m["expr"],
         test=int(m["div"]),
         if_true=int(m["true"]),
         if_false=int(m["false"])
@@ -80,6 +83,7 @@ monkeys = [
 
 inspections = [0 for _ in monkeys]
 
-for _ in range(10_000): round(relax=False, log=False)
+for _ in range(10_000):
+    round_(relax=False, log=False)
 a, b = heapq.nlargest(2, inspections)
 puzzle.answer_b = a * b

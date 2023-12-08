@@ -28,6 +28,5 @@ for a, b, c in instructions:
         tmp.append(stacks_b[b - 1].pop())
     stacks_b[c - 1] += reversed(tmp)
 
-print(puzzle.input_data)
 puzzle.answer_a = "".join(s[-1] for s in stacks_a)
 puzzle.answer_b = "".join(s[-1] for s in stacks_b)
