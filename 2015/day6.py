@@ -17,7 +17,6 @@ def rectangle(a: str, b: str):
 def first_task():
     lights = np.zeros((1000, 1000), dtype=np.bool_)
     for instruction in data:
-        print(instruction)
         match instruction.split():
             case ["turn", "on", a, "through", b]:
                 xa, xb, ya, yb = rectangle(a, b)
@@ -37,7 +36,6 @@ def first_task():
 def second_task():
     lights = np.zeros((1000, 1000), dtype=np.int_)
     for instruction in data:
-        print(instruction)
         match instruction.split():
             case ["turn", "on", a, "through", b]:
                 xa, xb, ya, yb = rectangle(a, b)
