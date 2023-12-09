@@ -11,7 +11,7 @@ data = [[int(x) for x in line.split()] for line in data]
 
 total_a = total_b = 0
 for line in data:
-    diffs = line[:]
+    diffs = line
     first = [diffs[0]]
     while any(diffs):
         total_a += diffs[-1]
