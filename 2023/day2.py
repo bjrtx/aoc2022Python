@@ -8,10 +8,10 @@ from aocd.models import Puzzle
 puzzle = Puzzle(year=2023, day=2)
 data = puzzle.input_data.splitlines()
 
-outcomes = [[] for _ in data]
+outcomes: list[list[Counter]] = [[] for _ in data]
 
 for i, line in enumerate(data):
-    _, line = line.split(":", 2)
+    line = line.partition(':')[-1]
     for draw in line.split(";"):
         counts = Counter()
         for part in draw.split(","):

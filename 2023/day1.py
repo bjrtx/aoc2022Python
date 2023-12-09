@@ -5,12 +5,12 @@ data = puzzle.input_data.splitlines()
 
 
 def integers(s: str, first_step=True):
-    for j in range(len(s)):
-        if s[j].isnumeric():
-            yield int(s[j])
+    for j, c in enumerate(s):
+        if c.isnumeric():
+            yield int(c)
         elif not first_step:
             for i, w in enumerate(["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"], start=1):
-                if s[j:].startswith(w):
+                if s.startswith(w, j):
                     yield i
                     break
 
