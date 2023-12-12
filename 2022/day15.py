@@ -1,15 +1,13 @@
 import itertools
-import math
 import re
-import intervaltree
-import tqdm as tqdm
 
+import intervaltree
 from aocd.models import Puzzle
 
 puzzle = Puzzle(2022, 15)
 data = puzzle.input_data
 lines = data.splitlines()
-sensor_and_ranges: dict[tuple[int], int] = {}
+sensor_and_ranges = {}
 beacons = set()
 
 
@@ -38,6 +36,7 @@ def all_candidates():
     for (x, y), r in sensor_and_ranges.items():
         for a, b in itertools.product((-1, 1), repeat=2):
             yield from ((x + a * t, y + b * (r + 1 - t)) for t in range(r + 2))
+
 
 # not optimal, todo
 unique_sol = set(

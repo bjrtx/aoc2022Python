@@ -20,19 +20,19 @@ class Directory:
 
 
 root = Directory()
-wdir = root
+w_dir = root
 for line in data:
     if line == "$ cd /":
-        wdir = root
+        w_dir = root
     elif line == "$ cd ..":
-        if wdir != root:
-            wdir = wdir.parent
+        if w_dir != root:
+            w_dir = w_dir.parent
     elif line.startswith("$ cd"):
         name = line.split()[-1]
-        wdir = wdir.subdirectories[name]
+        w_dir = w_dir.subdirectories[name]
     elif not (line.startswith("$") or line.startswith("dir")):
         value = int(line.split(maxsplit=1)[0])
-        wdir.direct_files += value
+        w_dir.direct_files += value
 
 
 @cache

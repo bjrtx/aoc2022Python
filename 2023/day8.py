@@ -17,6 +17,7 @@ for i, step in enumerate(itertools.cycle(instructions)):
         break
     curr = edges[curr][step == 'R']
 
+# noinspection PyUnboundLocalVariable
 puzzle.answer_a = i
 
 

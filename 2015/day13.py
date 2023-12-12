@@ -1,6 +1,5 @@
 import functools
 import itertools
-import json
 import operator
 import re
 from collections import defaultdict

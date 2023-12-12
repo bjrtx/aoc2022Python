@@ -23,5 +23,6 @@ for step in itertools.count(1):
     else:
         seen[t] = step
 
+# noinspection PyUnboundLocalVariable
 puzzle.answer_a = step
 puzzle.answer_b = step - seen[t]

@@ -1,7 +1,4 @@
 import itertools
-from functools import cmp_to_key
-
-import networkx as nx
 
 from aocd.models import Puzzle
 

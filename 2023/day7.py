@@ -5,6 +5,7 @@ from aocd.models import Puzzle
 puzzle = Puzzle(year=2023, day=7)
 data = puzzle.input_data.splitlines()
 
+# noinspection SpellCheckingInspection
 translation = {str(i): i for i in range(2, 10)} | {suit: i for i, suit in enumerate('TJQKA', 10)}
 
 hands = [

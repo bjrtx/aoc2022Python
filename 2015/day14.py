@@ -24,7 +24,6 @@ def positions():
     return zip(*map(accumulate, speeds))
 
 
-
 puzzle.answer_a = max(more_itertools.last(positions()))
 
 scores = [0 for _ in reindeer]

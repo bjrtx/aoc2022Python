@@ -1,17 +1,17 @@
 import itertools
-from functools import cmp_to_key
 
 from aocd.models import Puzzle
 
 puzzle = Puzzle(2022, 14)
 data = puzzle.examples[0].input_data
 
-paths = [[eval(pair) for pair in l.split('->')] for l in data.splitlines()]
+paths = [[eval(pair) for pair in line.split('->')] for line in data.splitlines()]
 print(paths)
 
-class Walls():
+
+class Walls:
     def __init__(self):
-        lines = [list(itertools.pairwise(l)) for l in paths]
+        lines = [list(itertools.pairwise(line)) for line in paths]
         print(lines)
         self.pairs = list(itertools.chain.from_iterable(lines))
         print(self.pairs)
@@ -43,6 +43,5 @@ def flow(i, j):
     yield i, j
 
 
-_ = list(itertools.takewhile(lambda p:p[1] < bottom, flow(500, 0)))
+_ = list(itertools.takewhile(lambda p: p[1] < bottom, flow(500, 0)))
 print(len(visited))
-

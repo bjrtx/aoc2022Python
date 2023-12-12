@@ -12,9 +12,9 @@ def is_valid(passphrase):
 puzzle.answer_a = sum(is_valid(passphrase) for passphrase in data)
 
 
-def is_valider(passphrase):
+def is_still_valid(passphrase):
     words = [tuple(sorted(w)) for w in passphrase.split()]
     return len(words) == len(set(words))
 
 
-puzzle.answer_b = sum(is_valider(passphrase) for passphrase in data)
+puzzle.answer_b = sum(is_still_valid(passphrase) for passphrase in data)

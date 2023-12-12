@@ -19,10 +19,10 @@ sight_lines = itertools.chain(
 visible = set()
 for sight_line in sight_lines:
     tallest = -1
-    for (h, coords) in sight_line:
+    for (h, coordinates) in sight_line:
         if h > tallest:
             tallest = h
-            visible.add(coords)
+            visible.add(coordinates)
 
 puzzle.answer_a = len(visible)
 

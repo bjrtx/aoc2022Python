@@ -19,8 +19,7 @@ def simplex(n):
 
 def scores(count_calories):
     ingredients_no_calories = ingredients[:, :-1]
-    if count_calories:
-        calories = ingredients[:, -1]
+    calories = ingredients[:, -1] if count_calories else None
     print(ingredients_no_calories)
     for p in simplex(len(ingredients_no_calories)):
         if not count_calories or np.dot(p, calories) == 500:

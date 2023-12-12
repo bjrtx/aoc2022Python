@@ -1,8 +1,5 @@
 import itertools
-from collections import Counter
 
-import more_itertools
-import numpy as np
 from aocd.models import Puzzle
 
 puzzle = Puzzle(year=2023, day=11)

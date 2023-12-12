@@ -9,6 +9,7 @@ def values():
     time = 1
     value = 1
     for instr in instructions:
+        # noinspection SpellCheckingInspection
         if instr[0] == "addx":
             time += 2
             value += int(instr[1])
@@ -47,4 +48,5 @@ def displayed():
         yield "\n"
 
 
+# noinspection SpellCheckingInspection
 puzzle.answer_b = "ERCREPCJ"

@@ -1,6 +1,4 @@
-import re
 from collections import Counter
-from copy import deepcopy
 
 from aocd.models import Puzzle
 

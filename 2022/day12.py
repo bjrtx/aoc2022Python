@@ -1,5 +1,3 @@
-import itertools
-from collections import deque
 import networkx as nx
 
 
@@ -32,4 +30,8 @@ for (i, j) in G.nodes:
 
 puzzle.answer_a = nx.algorithms.shortest_path_length(G, source=start, target=goal)
 lowest_points = [n for n, v in G.nodes.items() if v["value"] == ord('a')]
-puzzle.answer_b = min(l for source, l in nx.algorithms.shortest_path_length(G, target=goal).items() if source in lowest_points)
+puzzle.answer_b = min(
+    l
+    for source, l in nx.algorithms.shortest_path_length(G, target=goal).items()
+    if source in lowest_points
+)

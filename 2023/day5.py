@@ -14,22 +14,22 @@ for line in data.splitlines()[1:]:
     if line.endswith('map:'):
         maps.append([])
     elif line:
-        dest, source, range_ = map(int, line.split())
-        maps[-1].append((source, dest, range_))
+        destination, source, range_ = map(int, line.split())
+        maps[-1].append((source, destination, range_))
 
 
 def apply_map(value, m):
-    for source, dest, range_ in m:
+    for source, destination, range_ in m:
         if source <= value < source + range_:
-            return dest - source + value
+            return destination - source + value
     else:
         return value
 
 
 def reverse_map(value, m):
-    for source, dest, range_ in m:
-        if dest <= value <= dest + range_:
-            return source - dest + value
+    for source, destination, range_ in m:
+        if destination <= value <= destination + range_:
+            return source - destination + value
     else:
         return value
 

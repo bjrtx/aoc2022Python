@@ -6,10 +6,11 @@ data = puzzle.input_data.splitlines()
 rucksacks = [
     (line[:len(line) // 2], line[len(line) // 2:]) for line in data
 ]
-items = [set(l).intersection(r).pop() for l, r in rucksacks]
+items = [set(left).intersection(right).pop() for left, right in rucksacks]
 
 groups = [data[i: i + 3] for i in range(0, len(data), 3)]
 badges = [set(a).intersection(b).intersection(c).pop() for a, b, c in groups]
+
 
 def priority(item: str):
     return ord(item) + (1 - ord('a') if item.islower() else 27 - ord('A'))

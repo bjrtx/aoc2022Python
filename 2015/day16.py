@@ -6,6 +6,7 @@ from aocd.models import Puzzle
 puzzle = Puzzle(year=2015, day=16)
 data = puzzle.input_data.splitlines()
 
+# noinspection SpellCheckingInspection
 info = """children: 3
 cats: 7
 samoyeds: 2
@@ -27,6 +28,7 @@ def is_compatible(aunt: dict):
     )
 
 
+# noinspection SpellCheckingInspection
 def is_compatible2(aunt: dict):
     return all((
         all(

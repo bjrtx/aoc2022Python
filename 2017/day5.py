@@ -14,6 +14,7 @@ for step in itertools.count(1):
     if index < 0 or index >= len(jumps):
         break
 
+# noinspection PyUnboundLocalVariable
 puzzle.answer_a = step
 
 jumps = data[:]
