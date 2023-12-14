@@ -1,6 +1,7 @@
 import itertools
 from functools import cache
 
+import more_itertools
 from aocd.models import Puzzle
 
 puzzle = Puzzle(year=2023, day=12)
@@ -13,8 +14,8 @@ def possibilities(s: str, tup: tuple[int]):
     if s and tup:
         if s[0] == '#':
             n = tup[0]
-            comp = len(s) >= n and '.' not in s[:n] and (len(s) == n or s[n] != '#')
-            return possibilities(s[n + 1:], tup[1:]) if comp else 0
+            compatible = len(s) >= n and '.' not in s[:n] and more_itertools.nth(s, n) != '#'
+            return possibilities(s[n + 1:], tup[1:]) if compatible else 0
         else:  # s[0] == '?'
             return possibilities('#' + s[1:], tup) + possibilities(s[1:], tup)
     else:
