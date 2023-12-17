@@ -15,7 +15,7 @@ def neighbours(i, j, vertical=True, second_part=False):
     return filter(
         lambda p: 0 <= p[0] < m and 0 <= p[1] < n,
         (
-            (i + nb * a * dy, j + nb * b * dx, not vertical)
+            (i + nb * a * dx, j + nb * b * dy, not vertical)
             for a, b in itertools.product((-1, 1), repeat=2)
             for nb in (range(4, 11) if second_part else range(1, 4))
         )
