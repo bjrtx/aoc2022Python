@@ -1,4 +1,7 @@
+import itertools
+
 from aocd.models import Puzzle
+import numpy as np
 
 puzzle = Puzzle(2022, 9)
 data = puzzle.input_data.splitlines()
@@ -6,25 +9,19 @@ instructions = [(w[0], int(w[1])) for w in [line.split() for line in data]]
 
 
 class Rope:
-    def __init__(self, length=2):
+    def __init__(self, length):
         self.length = length
-        self.nodes = [[0, 0] for _ in range(self.length)]
+        self.nodes = [np.zeros(2) for _ in range(self.length)]
         self.memory = {(0, 0)}
 
-    @staticmethod
-    def _sgn(a):
-        return -1 if a <= -1 else 1 if a >= 1 else 0
-
     def update(self):
-        for i in range(self.length - 1):
-            diff = [a - b for a, b in zip(self.nodes[i], self.nodes[i + 1])]
-            if max(abs(x) for x in diff) > 1:
-                steps = [self._sgn(d) for d in diff]
-                self.nodes[i + 1][0] += steps[0]
-                self.nodes[i + 1][1] += steps[1]
+        for i, (a, b) in enumerate(itertools.pairwise(self.nodes)):
+            diff = a - b
+            if np.any(np.abs(diff) > 1):
+                self.nodes[i + 1] += np.sign(diff)
         self.memory.add(tuple(self.nodes[-1]))
 
-    def follow_instructions(self, instructions):
+    def follow_instructions(self):
         for d, n in instructions:
             for _ in range(n):
                 if d == 'D':
@@ -37,11 +34,11 @@ class Rope:
                     self.nodes[0][0] += 1
                 self.update()
 
+    @staticmethod
+    def solve(length=2):
+        r = Rope(length)
+        r.follow_instructions()
+        return len(r.memory)
 
-r = Rope()
-r.follow_instructions(instructions)
 
-puzzle.answer_a = len(r.memory)
-r = Rope(10)
-r.follow_instructions(instructions)
-puzzle.answer_b = len(r.memory)
+puzzle.answer_a, puzzle.answer_b = Rope.solve(), Rope.solve(10)
