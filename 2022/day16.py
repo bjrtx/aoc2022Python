@@ -11,18 +11,20 @@ data = puzzle.input_data.splitlines()
 connections = dict()
 flows = dict()
 g = networkx.Graph()
-for l in data:
+for line in data:
     m = re.match(
-        r'Valve ([A-Z]{2}) has flow rate=(\d+); (?:tunnels lead to valves ((?:[A-Z]{2}, )*[A-Z]{2})|tunnel leads to valve ([A-Z]{2}))',
-        l
+        r'Valve ([A-Z]{2}) has flow rate=(\d+);'
+        r' (?:tunnels lead to valves ((?:[A-Z]{2}, )*[A-Z]{2})'
+        r'|tunnel leads to valve ([A-Z]{2}))',
+        line
     )
     valve, flow, leads = [p for p in m.groups() if p]
     flows[valve] = int(flow)
-    # g.add_node(valve)
     g.add_edges_from((valve, n) for n in leads.split(', '))
 
 length: dict[str, dict[str, int]] = dict(networkx.all_pairs_shortest_path_length(g))
 relevant = {n for n, v in flows.items() if v}
+
 
 @cache
 def optimal(remains: frozenset[str] = frozenset(relevant), position: str = 'AA', time: int = 30):

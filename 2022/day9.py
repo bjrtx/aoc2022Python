@@ -2,7 +2,7 @@ from aocd.models import Puzzle
 
 puzzle = Puzzle(2022, 9)
 data = puzzle.input_data.splitlines()
-instructions = [(l[0], int(l[1])) for l in [line.split() for line in data]]
+instructions = [(w[0], int(w[1])) for w in [line.split() for line in data]]
 
 
 class Rope:
