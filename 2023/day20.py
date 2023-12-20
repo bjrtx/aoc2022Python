@@ -81,22 +81,18 @@ def indirect_inputs(module):
 
 cache_ = dict()
 
-
 def period(module):
-    global cache_
-    if module in cache_:
-        return cache_[module]
     r = indirect_inputs(module)
     clean_state()
-    seen = dict()
-    for i in itertools.count():
-        h = push()
-        h = repr([h.get(s) for s in r])
-        if delta := seen.setdefault(h, i) - i:
-            cache_.update((s, delta) for s in r | {module})
-            return delta
-        seen[h] = i
+    all_zero = repr([state.get(s) for s in r])
+    return 1 + more_itertools.first(
+        more_itertools.iter_index(
+            (repr([h.get(s) for s in r]) for h in (push() for _ in itertools.count())),
+            all_zero
+        )
+    )
 
 
-#  Visual inspection, 'tg' is the top-most module
-puzzle.answer_b = math.lcm(*(period(m) for m in modules - {'tg'}))
+#  Visual inspection, a top-most module feeds into rx, has itself four inputs
+top_module = more_itertools.one(inputs['rx'])
+puzzle.answer_b = math.lcm(*(period(m) for m in inputs[top_module]))
