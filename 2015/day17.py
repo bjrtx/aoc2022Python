@@ -7,7 +7,7 @@ data = tuple(int(x) for x in puzzle.input_data.splitlines())
 
 
 @cache
-def solutions(amount, sizes=tuple(data)):
+def solutions(amount, sizes=data):
     if amount == 0:
         return (0,)
     elif amount < 0 or not sizes:
@@ -20,5 +20,4 @@ def solutions(amount, sizes=tuple(data)):
 
 
 t = solutions(150)
-puzzle.answer_a = len(t)
-puzzle.answer_b = t.count(min(t))
+puzzle.answer_a, puzzle.answer_b = len(t), t.count(min(t))
