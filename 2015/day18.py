@@ -29,6 +29,7 @@ def conway_step(data: np.ndarray, second=False):
         ndata[pos] = (second and pos in corners) or count == 3 or (count == 2 and data[pos])
     return ndata
 
+
 # Somewhat too slow (ca. 1 min.)
 puzzle.answer_a, puzzle.answer_b = [
     more_itertools.nth(more_itertools.iterate(f, data), 100).sum()
