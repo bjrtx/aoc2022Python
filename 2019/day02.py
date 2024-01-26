@@ -26,6 +26,7 @@ def run(noun, verb):
         pointer += 4
     return memory[0]
 
+
 puzzle.answer_a = run(12, 2)
 puzzle.answer_b = first(
     100 * noun + verb
