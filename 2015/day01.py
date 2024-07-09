@@ -8,5 +8,5 @@ data = puzzle.input_data.strip()
 
 puzzle.answer_a = 2 * data.count('(') - len(data)
 
-positions = itertools.accumulate(1 if c == '(' else -1 for c in data)
+positions = itertools.accumulate(2 * (c == '(') - 1 for c in data)
 puzzle.answer_b = next(more_itertools.iter_index(positions, -1)) + 1
