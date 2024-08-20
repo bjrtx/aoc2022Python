@@ -1,5 +1,4 @@
 import itertools
-from collections import defaultdict
 
 import more_itertools
 from aocd.models import Puzzle

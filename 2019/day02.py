@@ -1,13 +1,11 @@
 import copy
 import itertools
 
-import more_itertools
 from aocd.models import Puzzle
 from more_itertools import first
 
 puzzle = Puzzle(year=2019, day=2)
 data = [int(x) for x in puzzle.input_data.split(',')]
-
 
 
 def run(noun, verb):

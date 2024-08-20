@@ -1,8 +1,3 @@
-import itertools
-from collections import Counter
-from functools import cache
-
-import more_itertools
 import numpy as np
 from aocd.models import Puzzle
 
