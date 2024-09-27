@@ -1,3 +1,4 @@
+import asyncio
 import copy
 
 from aocd.models import Puzzle
@@ -6,7 +7,7 @@ puzzle = Puzzle(year=2019, day=5)
 data = [int(x) for x in puzzle.input_data.split(',')]
 
 
-def run(input_):
+async def run(data, input: asyncio.Queue, output: asyncio.Queue):
     pointer = 0
     memory = copy.deepcopy(data)
 
@@ -24,10 +25,10 @@ def run(input_):
                 memory[memory[pointer + 3]] = read(pointer, 1) * read(pointer, 2)
                 pointer += 4
             case 3:
-                memory[memory[pointer + 1]] = input_
+                memory[memory[pointer + 1]] = await input.get()
                 pointer += 2
             case 4:
-                input_ = read(pointer, 1)
+                await output.put(read(pointer, 1))
                 pointer += 2
             case 5:
                 if read(pointer, 1):
@@ -46,9 +47,18 @@ def run(input_):
                 memory[memory[pointer + 3]] = int(read(pointer, 1) == read(pointer, 2))
                 pointer += 4
             case 99:
-                break
-    return input_
+                return
 
 
-puzzle.answer_a = run(1)
-puzzle.answer_b = run(5)
+q, o = asyncio.Queue(), asyncio.Queue()
+q.put_nowait(1)
+asyncio.run(run(data, input=q, output=o))
+while not o.empty():
+    x = o.get_nowait()
+puzzle.answer_a = x
+q, o = asyncio.Queue(), asyncio.Queue()
+q.put_nowait(5)
+asyncio.run(run(data, input=q, output=o))
+while not o.empty():
+    x = o.get_nowait()
+puzzle.answer_b = x
