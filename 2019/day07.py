@@ -17,12 +17,10 @@ async def main_a():
         for q, x in zip(queues, p):
             q.put_nowait(x)
         queues[0].put_nowait(0)
-        await asyncio.gather(*[
-            run(data, q_in, q_out)
-            for (q_in, q_out) in pairwise(queues)
-        ])
-        while not queues[-1].empty():
-            m = max(m, await queues[-1].get())
+        async with asyncio.TaskGroup() as group:
+            for pair in pairwise(queues):
+                group.create_task(run(data, *pair))
+        m = max(m, queues[-1].get_nowait())
     return m
 
 
@@ -36,10 +34,9 @@ async def main_b():
         for q, x in zip(queues, p):
             q.put_nowait(x)
         queues[0].put_nowait(0)
-        await asyncio.gather(*[
-            run(data, *pair)
-            for pair in pairwise(value_chain(queues, queues[0]))
-        ])
+        async with asyncio.TaskGroup() as group:
+            for pair in pairwise(value_chain(queues, queues[0])):
+                group.create_task(run(data, *pair))
         m = max(m, queues[0].get_nowait())
     return m
 
