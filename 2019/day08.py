@@ -1,12 +1,6 @@
-import asyncio
 import itertools
-from itertools import pairwise, permutations
 
-import more_itertools
-from more_itertools import value_chain
 from aocd.models import Puzzle
-
-from day05 import run
 
 puzzle = Puzzle(year=2019, day=8)
 data = puzzle.input_data
