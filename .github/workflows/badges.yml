@@ -14,6 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4                # clones your repo
+      
+      - uses: joblo2213/aoc-badges-action@v3
+        with:
+          userid: 3196396                          # your user id, see setup on how to obtain
+          session: ${{ secrets.AOC_SESSION }}    # secret containing session code, see setup on how to obtain
+          year: 2023
+          starsRegex: '(?<=https:\/\/img\.shields\.io\/badge\/2023%20⭐-)[0-9]+(?=-yellow)'   
           
       - uses: joblo2213/aoc-badges-action@v3
         with:
