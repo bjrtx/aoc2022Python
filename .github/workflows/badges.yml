@@ -20,7 +20,7 @@ jobs:
           userid: 3196396                          # your user id, see setup on how to obtain
           session: ${{ secrets.AOC_SESSION }}    # secret containing session code, see setup on how to obtain
           year: 2024
-          starsRegex: '(?<=https:\/\/img\.shields\.io\/badge\/2023%20⭐-)[0-9]+(?=-yellow)'   
+          starsRegex: '(?<=https:\/\/img\.shields\.io\/badge\/2024%20⭐-)[0-9]+(?=-yellow)'   
           
       - uses: joblo2213/aoc-badges-action@v3
         with:
