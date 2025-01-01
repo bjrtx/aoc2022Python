@@ -1,5 +1,6 @@
 from collections import Counter
 
+import more_itertools
 from aocd.models import Puzzle
 
 puzzle = Puzzle(2022, 6)
@@ -15,7 +16,7 @@ def first_full(n):
             starting[b] += 1
             yield len(+starting)
 
-    return next(i for i, l in enumerate(lengths(), start=n) if l == n)
+    return n + next(more_itertools.iter_index(lengths(), n))
 
 
 puzzle.answer_a = first_full(4)

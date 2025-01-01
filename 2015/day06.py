@@ -18,18 +18,12 @@ def first_task():
     lights = np.zeros((1000, 1000), dtype=np.bool_)
     for instruction in data:
         match instruction.split():
-            case ["turn", "on", a, "through", b]:
+            case ["turn", on_off, a, "through", b]:
                 xa, xb, ya, yb = rectangle(a, b)
-                lights[xa:xb, ya:yb] = True
-            case ["turn", "off", a, "through", b]:
-                xa, xb, ya, yb = rectangle(a, b)
-                lights[xa:xb, ya:yb] = False
+                lights[xa:xb, ya:yb] = on_off == "on"
             case ["toggle", a, "through", b]:
                 xa, xb, ya, yb = rectangle(a, b)
                 lights[xa:xb, ya:yb] = np.logical_not(lights[xa:xb, ya:yb])
-            case _:
-                raise ValueError
-
     return lights.sum()
 
 
@@ -46,9 +40,6 @@ def second_task():
             case ["toggle", a, "through", b]:
                 xa, xb, ya, yb = rectangle(a, b)
                 lights[xa:xb, ya:yb] += 2
-            case _:
-                raise ValueError
-
     return lights.sum()
 
 

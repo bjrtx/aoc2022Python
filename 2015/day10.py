@@ -1,6 +1,6 @@
 import itertools
 
-import more_itertools
+from more_itertools import ilen, iterate, nth
 from aocd.models import Puzzle
 
 puzzle = Puzzle(year=2015, day=10)
@@ -13,14 +13,8 @@ def look_and_say(it):
         yield int(k)
 
 
-s = data
-for i in range(40):
-    s = look_and_say(s)
+s = nth(iterate(look_and_say, data), 40)
+puzzle.answer_a = ilen(s)
 
-puzzle.answer_a = more_itertools.ilen(s)
-
-s = data
-for i in range(50):
-    s = look_and_say(s)
-
-puzzle.answer_b = more_itertools.ilen(s)
+s = nth(iterate(look_and_say, data), 50)
+puzzle.answer_b = ilen(s)

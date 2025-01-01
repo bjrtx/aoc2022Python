@@ -8,7 +8,6 @@ data = [int(x) for x in puzzle.input_data.split()]
 banks = data[:]
 seen = {}
 for step in itertools.count(1):
-    print(banks)
     blocks = max(banks)
     index = banks.index(blocks)
     q, r = divmod(blocks, len(banks))

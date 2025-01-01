@@ -1,3 +1,5 @@
+import itertools
+
 from aocd.models import Puzzle
 
 puzzle = Puzzle(2022, 3)
@@ -7,9 +9,7 @@ rucksacks = [
     (line[:len(line) // 2], line[len(line) // 2:]) for line in data
 ]
 items = [set(left).intersection(right).pop() for left, right in rucksacks]
-
-groups = [data[i: i + 3] for i in range(0, len(data), 3)]
-badges = [set(a).intersection(b).intersection(c).pop() for a, b, c in groups]
+badges = [set(a).intersection(b).intersection(c).pop() for a, b, c in itertools.batched(data, 3)]
 
 
 def priority(item: str):

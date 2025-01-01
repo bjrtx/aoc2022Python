@@ -9,10 +9,11 @@ data = puzzle.input_data
 
 
 def hashes():
-    for idx in count():
-        h = md5(f'{data}{idx}'.encode()).hexdigest()
-        if h.startswith('00000'):
-            yield h
+    return (
+        h
+        for idx in count()
+        if (h := md5(f'{data}{idx}'.encode()).hexdigest()).startswith('00000')
+    )
 
 
 puzzle.answer_a = ''.join(h[5] for h in take(8, hashes()))

@@ -1,6 +1,6 @@
 import re
 
-import more_itertools
+from more_itertools import iterate, take, triplewise
 from aocd.models import Puzzle
 
 puzzle = Puzzle(year=2015, day=11)
@@ -17,19 +17,11 @@ def next_string(s):
 def is_valid(s):
     return (
             any(
-                a == b - 1 == c - 2 for a, b, c in more_itertools.triplewise(map(ord, s))
+                a == b - 1 == c - 2 for a, b, c in triplewise(map(ord, s))
             )
-            and all(c not in s for c in 'iol')
+            and not re.search('[iol]', s)
             and re.search(r"(.)\1.*(.)\2", s) is not None
     )
 
 
-passwd = data
-while not is_valid(passwd):
-    passwd = next_string(passwd)
-
-puzzle.answer_a = passwd
-passwd = next_string(passwd)
-while not is_valid(passwd):
-    passwd = next_string(passwd)
-puzzle.answer_b = passwd
+puzzle.answer_a, puzzle.answer_b = take(2, filter(is_valid, iterate(next_string, data)))

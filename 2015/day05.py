@@ -12,7 +12,7 @@ def is_nice(s):
     return (
             sum(c in 'aeiou' for c in s) > 2
             and any(a == b for a, b in itertools.pairwise(s))
-            and all(sub not in s for sub in ('ab', 'cd', 'pq', 'xy'))
+            and not re.search('ab|cd|pq|xy', s)
     )
 
 

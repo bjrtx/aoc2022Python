@@ -1,6 +1,7 @@
-import itertools
+from itertools import pairwise, permutations
 import re
 
+import more_itertools
 from aocd.models import Puzzle
 
 puzzle = Puzzle(year=2015, day=9)
@@ -15,12 +16,11 @@ cities = set()
 for a, b, d in distances:
     cities.add(a)
     cities.add(b)
-    distance_dict[(a, b)] = distance_dict[(b, a)] = int(d)
+    distance_dict[a, b] = distance_dict[b, a] = int(d)
 
 
 def cost(permutation):
-    return sum(distance_dict[p] for p in itertools.pairwise(permutation))
+    return sum(distance_dict[p] for p in pairwise(permutation))
 
 
-puzzle.answer_a = min(cost(p) for p in itertools.permutations(cities))
-puzzle.answer_b = max(cost(p) for p in itertools.permutations(cities))
+puzzle.answer_a, puzzle.answer_b = more_itertools.minmax(cost(p) for p in permutations(cities))

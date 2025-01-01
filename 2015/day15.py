@@ -13,14 +13,14 @@ ingredients = np.array([[int(m[0]) for m in re.finditer(r'-?\d+', line)] for lin
 
 def simplex(n):
     for p in itertools.product(range(101), repeat=n-1):
-        if sum(p) <= 100:
-            yield *p, 100 - sum(p)
+        s = 100 - sum(p)
+        if s >= 0:
+            yield *p, s
 
 
 def scores(count_calories):
     ingredients_no_calories = ingredients[:, :-1]
     calories = ingredients[:, -1] if count_calories else None
-    print(ingredients_no_calories)
     for p in simplex(len(ingredients_no_calories)):
         if not count_calories or np.dot(p, calories) == 500:
             total = np.maximum(p @ ingredients_no_calories, 0)

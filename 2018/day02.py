@@ -8,8 +8,6 @@ puzzle = Puzzle(year=2018, day=2)
 data = puzzle.input_data.splitlines()
 
 counts = [Counter(w).values() for w in data]
-
-print(sum(2 in c for c in counts) * sum(3 in c for c in counts))
 puzzle.answer_a = sum(2 in c for c in counts) * sum(3 in c for c in counts)
 
 p = next(

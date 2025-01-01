@@ -5,8 +5,7 @@ data = puzzle.input_data.splitlines()
 data = [line.split() for line in data]
 data = [(t[0], int(t[1])) for t in data]
 
-horizontal = 0
-depth = 0
+horizontal = depth = 0
 for cmd, v in data:
     match cmd:
         case "forward":
@@ -18,9 +17,7 @@ for cmd, v in data:
 
 puzzle.answer_a = horizontal * depth
 
-horizontal = 0
-depth = 0
-aim = 0
+horizontal = depth = aim = 0
 for cmd, v in data:
     match cmd:
         case "forward":

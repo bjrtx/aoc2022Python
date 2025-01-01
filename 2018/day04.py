@@ -8,7 +8,6 @@ import numpy as np
 from aocd.models import Puzzle
 
 puzzle = Puzzle(year=2018, day=4)
-data = puzzle.examples[0].input_data.splitlines()
 data = puzzle.input_data.splitlines()
 
 events = [
